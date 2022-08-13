@@ -18,6 +18,9 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
     - [Go](#go)
   - [Run](#run)
   - [Results](#results)
+    - [Machine time](#machine-time)
+    - [Development time](#development-time)
+    - [Verdict](#verdict)
 
 ## Test bench
 
@@ -35,7 +38,7 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
 
 ## Prerequisites
 
-Make sure your versions match the [test bench](#test-bench)
+Make sure your versions match the [test bench](#test-bench)  
 Benchmarking tool: [Hyperfine](https://github.com/sharkdp/hyperfine)
 
 ### Python
@@ -101,6 +104,8 @@ hyperfine "python3.10 ana.py" "./ananim" "./anago"
 
 ## Results
 
+### Machine time
+
 Go managed to come out first but oddly enough, Nim is the slowest.
 
 | Command  |     Mean [ms] | Min [ms] | Max [ms] |    Relative |
@@ -108,3 +113,15 @@ Go managed to come out first but oddly enough, Nim is the slowest.
 | `Go`     |  787.6 ± 18.5 |    762.0 |    820.2 |        1.00 |
 | `Python` |  874.7 ± 75.2 |    785.8 |   1047.2 | 1.11 ± 0.10 |
 | `Nim`    | 1502.0 ± 47.3 |   1405.6 |   1565.1 | 1.91 ± 0.07 |
+
+### Development time
+
+I did not time my work for this project though all the versions got completed in an afternoon. However, I will rate each version from quick to slow (read easy to hard).
+
+1. Python
+2. Nim
+3. Go
+
+### Verdict
+
+`Python` was the easiest/quickest to write and since the completion time is very close to `Go`, it is the clear choice for this specific problem.
