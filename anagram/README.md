@@ -1,5 +1,15 @@
 # Anagram
 
+- [Anagram](#anagram)
+  - [Test bench](#test-bench)
+  - [Languages](#languages)
+  - [Prerequisites](#prerequisites)
+    - [Python](#python)
+    - [Nim](#nim)
+    - [Go](#go)
+  - [Run](#run)
+  - [Results](#results)
+
 This is a Kata that I came across a few months ago. Though it is not truly a real world problem, it definitely embodies some of my daily challenges.
 
 I have tried to make all the versions as close as possible.
@@ -12,17 +22,18 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
 | ------------------ | ---------- | ------------------------------ | ------ |
 | Ubuntu 20.04.4 LTS | 5.10.102.1 | Intel i7-7700HQ (8) @ 2.807GHz | 24GB   |
 
+## Languages
+
 | Language | Version  |
 | -------- | -------- |
 | Python   | `3.10.5` |
 | Nim      | `1.7.1`  |
 | Go       | `1.19`   |
 
-Benchmarking tool: [Hyperfine](https://github.com/sharkdp/hyperfine)
-
 ## Prerequisites
 
 Make sure your versions match the [test bench](#test-bench)
+Benchmarking tool: [Hyperfine](https://github.com/sharkdp/hyperfine)
 
 ### Python
 
