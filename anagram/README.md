@@ -1,6 +1,15 @@
 # Anagram
 
+This is a Kata that I came across a few months ago. Though it is not truly a real world problem, it definitely embodies some of my daily challenges.
+
+I have tried to make all the versions as close as possible.
+
+Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams/).
+
+## Table of Contents
+
 - [Anagram](#anagram)
+  - [Table of Contents](#table-of-contents)
   - [Test bench](#test-bench)
   - [Languages](#languages)
   - [Prerequisites](#prerequisites)
@@ -9,12 +18,6 @@
     - [Go](#go)
   - [Run](#run)
   - [Results](#results)
-
-This is a Kata that I came across a few months ago. Though it is not truly a real world problem, it definitely embodies some of my daily challenges.
-
-I have tried to make all the versions as close as possible.
-
-Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams/).
 
 ## Test bench
 
