@@ -21,6 +21,7 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
     - [Machine time](#machine-time)
     - [Development time](#development-time)
     - [Verdict](#verdict)
+    - [Closing Note](#closing-note)
 
 ## Test bench
 
@@ -50,6 +51,8 @@ $ python -V
 Python 3.10.5
 ```
 
+---
+
 ### Nim
 
 Check and compile Nim version:
@@ -68,6 +71,8 @@ nim c -d:release -mm:orc --threads:off -o:ananim ana.nim
 ```
 
 > with or without threads, the result is the same
+
+---
 
 ### Go
 
@@ -88,6 +93,8 @@ Please `unrar` the `wordlist.rar` before running the benchmark.
 unrar x wordlist.rar
 ```
 
+---
+
 ## Run
 
 Drop the current caches:
@@ -106,7 +113,7 @@ hyperfine "python3.10 ana.py" "./ananim" "./anago"
 
 ### Machine time
 
-Go managed to come out first but oddly enough, Nim is the slowest.
+`Go` managed to come out first but oddly enough, `Nim` is the slowest.
 
 | Command  |     Mean [ms] | Min [ms] | Max [ms] |    Relative |
 | :------- | ------------: | -------: | -------: | ----------: |
@@ -125,3 +132,9 @@ I did not time my work for this project though all the versions got completed in
 ### Verdict
 
 `Python` was the easiest/quickest to write and since the completion time is very close to `Go`, it is the clear choice for this specific problem.
+
+### Closing Note
+
+`Go` surprised me once again with the amounts of hoops that I had to jump through to solve such a simple problem. At one point, I was writing a `Rust` implementation as well and it is having way less complexity and `SLOC` than `Go` which I thought would be vice versa.
+
+Anyway, I had to stop since such a small application does not really justify having a `Rust` version as well. If anyone likes to contribute it, I would gladly take in the code and incorporate the benchmarks.
