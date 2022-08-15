@@ -14,8 +14,8 @@ Romanticizing a programming language (or a specific technology) is like falling 
 
 Here is the list of current benchmarks:
 
-1. [Anagram](anagram_go_nim_vs_python/README.md) comparing `Python`, `Go` and `Nim`.
-2. IPTABLES analysis on six million+ lines of log comparing `Python`, `Go`, `Nim` and `Rust` (WIP).
+1. [Anagram](anagram_go_nim_vs_python/README.md) comparing `Python`, `Rust`, `Go` and `Nim`.
+2. IPTABLES analysis on six million+ lines of log comparing `Python`, `Rust`, `Go` and `Nim` (WIP).
 
 ## Contribution
 

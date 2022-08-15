@@ -16,6 +16,7 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
     - [Python](#python)
     - [Nim](#nim)
     - [Go](#go)
+    - [Rust](#rust)
   - [Run](#run)
   - [Results](#results)
     - [Machine time](#machine-time)
@@ -36,6 +37,7 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
 | Python   | `3.10.5` |
 | Nim      | `1.7.1`  |
 | Go       | `1.19`   |
+| Rust     | `1.63.0` |
 
 ## Prerequisites
 
@@ -93,6 +95,19 @@ Please `unrar` the `wordlist.rar` before running the benchmark.
 unrar x wordlist.rar
 ```
 
+### Rust
+
+Check and compile Rust version:
+
+```bash
+$ rustc --version
+rustc 1.63.0 (4b91a6ea7 2022-08-08)
+```
+
+```bash
+cargo build -r
+```
+
 ---
 
 ## Run
@@ -106,7 +121,7 @@ sync; echo 3 | sudo tee /proc/sys/vm/drop_caches
 Run the benchmark:
 
 ```bash
-hyperfine "python3.10 ana.py" "./ananim" "./anago"
+hyperfine "python3.10 ana.py" "./ananim" "./anago" "./anarust"
 ```
 
 ## Results
@@ -115,11 +130,18 @@ hyperfine "python3.10 ana.py" "./ananim" "./anago"
 
 `Go` managed to come out first but oddly enough, `Nim` is the slowest.
 
-| Command  |     Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| Language |     Mean [ms] | Min [ms] | Max [ms] |    Relative |
 | :------- | ------------: | -------: | -------: | ----------: |
-| `Go`     |  787.6 ± 18.5 |    762.0 |    820.2 |        1.00 |
-| `Python` |  874.7 ± 75.2 |    785.8 |   1047.2 | 1.11 ± 0.10 |
-| `Nim`    | 1502.0 ± 47.3 |   1405.6 |   1565.1 | 1.91 ± 0.07 |
+| `Rust`   |  450.5 ± 25.8 |    413.3 |    504.9 |        1.00 |
+| `Go`     |  799.8 ± 24.9 |    762.9 |    838.2 | 1.78 ± 0.12 |
+| `Python` |  920.8 ± 57.2 |    831.2 |   1016.1 | 2.04 ± 0.17 |
+| `Nim`    | 1584.6 ± 52.5 |   1516.3 |   1689.0 | 3.52 ± 0.23 |
+
+---
+
+![Graph](ana.png)
+
+I am not entirely sure why we see two bars for `Python` and `Go`. I have used [this script](https://github.com/sharkdp/hyperfine/blob/master/scripts/plot_histogram.py) provided by `Hyperfine` to plot the histogram. The `JSON` result is also provided [here](anagram.json) in case you would like to replicate the plot.
 
 ### Development time
 
@@ -128,13 +150,12 @@ I did not time my work for this project though all the versions got completed in
 1. Python
 2. Nim
 3. Go
+4. Rust
 
 ### Verdict
 
-`Python` was the easiest/quickest to write and since the completion time is very close to `Go`, it is the clear choice for this specific problem.
+`Python` was the easiest/quickest to write and since the completion time is very close to `Go` and not too far off from `Rust`, it is the clear choice for this specific problem.
 
 ### Closing Note
 
-`Go` surprised me once again with the amounts of hoops that I had to jump through to solve such a simple problem. At one point, I was writing a `Rust` implementation as well and it is having way less complexity and `SLOC` than `Go` which I thought would be vice versa.
-
-Anyway, I had to stop since such a small application does not really justify having a `Rust` version as well. If anyone likes to contribute it, I would gladly take in the code and incorporate the benchmarks.
+`Go` surprised me once again with the amount of hoops that I had to jump through to solve such a simple problem. Even more than `Rust`.
