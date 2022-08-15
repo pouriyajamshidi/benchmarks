@@ -41,8 +41,9 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
 
 ## Prerequisites
 
-Make sure your versions match the [test bench](#test-bench)  
-Benchmarking tool: [Hyperfine](https://github.com/sharkdp/hyperfine)
+- Make sure your versions match the [test bench](#test-bench)
+- Benchmarking tool: [Hyperfine](https://github.com/sharkdp/hyperfine)
+- Plotting done by [this script](https://github.com/sharkdp/hyperfine/blob/master/scripts/plot_histogram.py)
 
 ### Python
 
@@ -141,7 +142,7 @@ hyperfine "python3.10 ana.py" "./ananim" "./anago" "./anarust"
 
 ![Graph](ana.png)
 
-I am not entirely sure why we see two bars for `Python` and `Go`. I have used [this script](https://github.com/sharkdp/hyperfine/blob/master/scripts/plot_histogram.py) provided by `Hyperfine` to plot the histogram. The `JSON` result is also provided [here](anagram.json) in case you would like to replicate the plot.
+The `JSON` result is also provided [here](anagram.json) in case you would like to replicate the plot.
 
 ### Development time
 
