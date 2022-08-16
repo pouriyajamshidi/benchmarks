@@ -3,18 +3,19 @@ import std/[tables, strutils, algorithm, strformat]
 
 var theDict = initTable[string, seq[string]]()
 
-for word in lines(("wordlist.txt")):
+for word in lines("wordlist.txt"):
     var word = word.replace("'", "").strip()
+
     if len(word) < 2:
         continue
 
-    var sorted_word = join(sorted(word), "")
+    var sortedWord = join(sorted(word), "")
 
-    if theDict.hasKey(sorted_word):
-        if not theDict[sorted_word].contains(word):
-            theDict[sorted_word].add(word)
+    if theDict.hasKey(sortedWord):
+        if not theDict[sortedWord].contains(word):
+            theDict[sortedWord].add(word)
     else:
-        theDict[sorted_word] = @[]
+        theDict[sortedWord] = @[]
 
 
 var counter = 0

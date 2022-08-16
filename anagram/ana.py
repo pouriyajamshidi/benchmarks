@@ -1,24 +1,22 @@
 #!/usr/bin/env python3
 
-
-with open("wordlist.txt", "r", errors="ignore") as f:
-    words = f.readlines()
-
-
 the_dict: dict = {}
 
-for word in words:
-    word = word.replace("'", "").strip()
-    if len(word) < 2:
-        continue
+with open("wordlist.txt", "r") as file:
+    for word in file:
+        word = word.replace("'", "").strip()
 
-    sorted_word = "".join(sorted(word))
+        if len(word) < 2:
+            continue
 
-    if sorted_word in the_dict:
-        if word not in the_dict[sorted_word]:
-            the_dict[sorted_word].append(word)
-    else:
-        the_dict[sorted_word] = []
+        sorted_word = "".join(sorted(word))
+
+        if sorted_word in the_dict:
+            if word not in the_dict[sorted_word]:
+                the_dict[sorted_word].append(word)
+        else:
+            the_dict[sorted_word] = []
+
 
 counter = 0
 for k, v in the_dict.items():

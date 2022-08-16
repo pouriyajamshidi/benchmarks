@@ -8,22 +8,22 @@ import (
 	"strings"
 )
 
-func sortString(s string) string {
-	var r []rune
+func sortString(str string) string {
+	var runeSlice []rune
 
-	for _, value := range s {
-		r = append(r, value)
+	for _, value := range str {
+		runeSlice = append(runeSlice, value)
 	}
 
-	sort.Slice(r, func(i, j int) bool {
-		return r[i] < r[j]
+	sort.SliceStable(runeSlice, func(i, j int) bool {
+		return runeSlice[i] < runeSlice[j]
 	})
 
-	return string(r)
+	return string(runeSlice)
 }
 
-func contains(s []string, str string) bool {
-	for _, v := range s {
+func contains(strSlice []string, str string) bool {
+	for _, v := range strSlice {
 		if v == str {
 			return true
 		}
@@ -32,6 +32,8 @@ func contains(s []string, str string) bool {
 }
 
 func main() {
+	theDict := make(map[string][]string)
+
 	file, err := os.Open("wordlist.txt")
 
 	if err != nil {
@@ -40,13 +42,10 @@ func main() {
 
 	defer file.Close()
 
-	theDict := make(map[string][]string)
-
 	words := bufio.NewScanner(file)
 
 	for words.Scan() {
-		word := words.Text()
-		word = strings.Trim(strings.Replace(word, "'", "", -1), "\n")
+		word := strings.Trim(strings.Replace(words.Text(), "'", "", -1), "\n")
 
 		if len(word) < 2 {
 			continue
@@ -54,18 +53,18 @@ func main() {
 
 		sortedWord := sortString(word)
 
-		if theDict[sortedWord] != nil {
+		if _, keyPresent := theDict[sortedWord]; keyPresent {
 			if !contains(theDict[sortedWord], word) {
 				theDict[sortedWord] = append(theDict[sortedWord], word)
 			}
 		} else {
-			theDict[sortedWord] = []string{word}
+			theDict[sortedWord] = []string{}
 		}
 	}
 
 	counter := 0
 	for k, v := range theDict {
-		if len(v) > 10 {
+		if len(v) >= 10 {
 			counter += 1
 			fmt.Printf("[%d] %s has %d words: %v\n", counter, k, len(v), v)
 		}

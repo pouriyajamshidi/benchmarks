@@ -5,9 +5,10 @@ use std::{
 };
 
 fn main() {
+    let mut the_dict: HashMap<String, Vec<String>> = HashMap::new();
+
     let file = File::open("wordlist.txt").unwrap();
     let mut words = BufReader::new(file).lines();
-    let mut the_dict: HashMap<String, Vec<String>> = HashMap::new();
 
     while let Some(Ok(word)) = words.next() {
         let word = word.trim().replace("'", "");
@@ -17,7 +18,7 @@ fn main() {
         }
 
         let mut word_vec: Vec<char> = word.chars().collect();
-        word_vec.sort_unstable();
+        word_vec.sort();
         let sorted_word: String = word_vec.into_iter().collect();
 
         if the_dict.contains_key(&sorted_word) {
