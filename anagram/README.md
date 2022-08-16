@@ -116,13 +116,14 @@ cargo build -r
 Drop the current caches:
 
 ```bash
-sync; echo 3 | sudo tee /proc/sys/vm/drop_caches
+sync
+echo 3 | sudo tee /proc/sys/vm/drop_caches
 ```
 
 Run the benchmark:
 
 ```bash
-hyperfine "python3.10 ana.py" "./ananim" "./anago" "./anarust"
+hyperfine --warmup 3 "python3.10 ana.py" "./ananim" "./anago" "./anarust" --export-json anagram.json --export-markdown anamarkdown
 ```
 
 ## Results
