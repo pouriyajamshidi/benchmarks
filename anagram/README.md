@@ -130,7 +130,7 @@ hyperfine --warmup 3 "python3.10 ana.py" "./ananim" "./anago" "./anarust" --expo
 
 ### Machine time
 
-`Go` managed to come out first but oddly enough, `Nim` is the slowest.
+Unsurprisingly, `Rust` managed to come out first but oddly enough, `Nim` is the slowest.
 
 | Language |     Mean [ms] | Min [ms] | Max [ms] |    Relative |
 | :------- | ------------: | -------: | -------: | ----------: |
