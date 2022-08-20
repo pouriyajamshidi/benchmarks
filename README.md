@@ -20,3 +20,5 @@ Here is the list of current benchmarks:
 ## Contribution
 
 All contributions are welcome. However, please keep in mind that your implementation must be producible in different languages and generic unless we specifically agree otherwise.
+
+All the versions should be kept similar at all times to keep this fair.
