@@ -2,15 +2,20 @@
 
 This is a Kata that I came across a few months ago. Though it is not truly a real world problem, it definitely embodies some of my daily challenges.
 
-I have tried to make all the versions as close as possible.
+It operates on `338782` lines of text.
+
+_I have tried to make all the versions as close as possible._
 
 Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams/).
+
+**UPDATE 1**: The [initial test bench](#initial-test-bench) used `WSL2` and `Nim` performed very poorly. I then moved to a [baremetal](#new-test-bench) running Ubuntu 20.0.4 LTS and `Nim` ran **66%** faster. So, it means, `Nim` is having a hard time in virtualized environments. Sadly, as of this writing, `WSL2` does not fully support `perf` and a `flamegraph` could not be generated.
 
 ## Table of Contents
 
 - [Anagram](#anagram)
   - [Table of Contents](#table-of-contents)
-  - [Test bench](#test-bench)
+  - [Initial Test bench](#initial-test-bench)
+  - [New Test bench](#new-test-bench)
   - [Languages](#languages)
   - [Prerequisites](#prerequisites)
     - [Python](#python)
@@ -19,16 +24,23 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
     - [Rust](#rust)
   - [Run](#run)
   - [Results](#results)
-    - [Machine time](#machine-time)
+    - [Machine time (WSL2)](#machine-time-wsl2)
+    - [Machine time (baremetal)](#machine-time-baremetal)
     - [Development time](#development-time)
     - [Verdict](#verdict)
     - [Closing Note](#closing-note)
 
-## Test bench
+## Initial Test bench
 
-| OS                 | Kernel     | CPU                            | Memory |
-| ------------------ | ---------- | ------------------------------ | ------ |
-| Ubuntu 20.04.4 LTS | 5.10.102.1 | Intel i7-7700HQ (8) @ 2.807GHz | 24GB   |
+| OS                        | Kernel     | CPU                            | Memory |
+| ------------------------- | ---------- | ------------------------------ | ------ |
+| Ubuntu 20.04.4 LTS (WSL2) | 5.10.102.1 | Intel i7-7700HQ (8) @ 2.807GHz | 24GB   |
+
+## New Test bench
+
+| OS                             | Kernel            | CPU                            | Memory |
+| ------------------------------ | ----------------- | ------------------------------ | ------ |
+| Ubuntu 20.04.4 LTS (baremetal) | 5.15.0-46-generic | Intel i7-7700HQ (8) @ 3.800GHz | 24GB   |
 
 ## Languages
 
@@ -44,6 +56,11 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
 - Make sure your versions match the [test bench](#test-bench)
 - Benchmarking tool: [Hyperfine](https://github.com/sharkdp/hyperfine)
 - Plotting done by [this script](https://github.com/sharkdp/hyperfine/blob/master/scripts/plot_histogram.py)
+- Please `unrar` the `wordlist.rar` before running the benchmark.
+
+  ```bash
+  unrar x wordlist.rar
+  ```
 
 ### Python
 
@@ -90,12 +107,6 @@ go version go1.19 linux/amd64
 go build -o anago ana.go
 ```
 
-Please `unrar` the `wordlist.rar` before running the benchmark.
-
-```bash
-unrar x wordlist.rar
-```
-
 ### Rust
 
 Check and compile Rust version:
@@ -123,12 +134,14 @@ echo 3 | sudo tee /proc/sys/vm/drop_caches
 Run the benchmark:
 
 ```bash
-hyperfine --warmup 3 "python3.10 ana.py" "./ananim" "./anago" "./anarust" --export-json anagram.json --export-markdown anamarkdown
+hyperfine --warmup 3 "python3.10 ana.py" "./ananim" "./anago" "./anarust" --export-json anagram.json --export-markdown anamarkdown.md
 ```
 
 ## Results
 
-### Machine time
+I have divided the `machine results` into two sections, [the initial one](#machine-time-wsl2) running on `WSL2` and [the updated one](#machine-time-baremetal) on a baremetal running `Ubuntu`.
+
+### Machine time (WSL2)
 
 Unsurprisingly, `Rust` managed to come out first but oddly enough, `Nim` is the slowest.
 
@@ -145,6 +158,25 @@ Unsurprisingly, `Rust` managed to come out first but oddly enough, `Nim` is the 
 
 The `JSON` result is also provided [here](anagram.json) in case you would like to replicate the plot.
 
+---
+
+### Machine time (baremetal)
+
+All programs gained a performance boost in this test in comparison to the `WSL2` test. `Rust` still managed to be the victor, `Go` kept its place and `Nim` is now very close to `Go`.
+
+| Language |   Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| :------- | ----------: | -------: | -------: | ----------: |
+| `Rust`   | 238.7 ± 1.2 |    237.5 |    241.6 |        1.00 |
+| `Go`     | 343.2 ± 4.1 |    337.8 |    350.4 | 1.44 ± 0.02 |
+| `Nim`    | 510.8 ± 4.9 |    503.1 |    520.8 | 2.14 ± 0.02 |
+| `Python` | 637.4 ± 8.7 |    624.9 |    653.3 | 2.67 ± 0.04 |
+
+---
+
+![Graph_updated](anaresult_updated.png)
+
+The `JSON` result is also provided [here](anajson_updated.json) in case you would like to replicate the plot.
+
 ### Development time
 
 I did not time my work for this project though all the versions got completed in an afternoon. However, I will rate each version from quick to slow (read easy to hard).
@@ -156,8 +188,8 @@ I did not time my work for this project though all the versions got completed in
 
 ### Verdict
 
-`Python` was the easiest/quickest to write and since the completion time is very close to `Go` and not too far off from `Rust`, it is the clear choice for this specific problem.
+`Python` was the easiest/quickest to write and since the completion time is very close to its counterparts, it is the clear choice for this specific problem.
 
 ### Closing Note
 
-`Go` surprised me once again with the amount of hoops that I had to jump through to solve such a simple problem. Even more than `Rust`.
+`Go` surprised me once again with the amount of hoops that I had to jump through to solve such a simple problem; more than `Rust`.
