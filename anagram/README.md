@@ -22,6 +22,7 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
     - [Nim](#nim)
     - [Go](#go)
     - [Rust](#rust)
+    - [V](#v)
   - [Run](#run)
   - [Results](#results)
     - [Machine time (WSL2)](#machine-time-wsl2)
@@ -50,6 +51,9 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
 | Nim      | `1.7.1`  |
 | Go       | `1.19`   |
 | Rust     | `1.63.0` |
+| V        | `0.3.1`  |
+
+`V` is only measured in the [new benchmark](#new-test-bench).
 
 ## Prerequisites
 
@@ -120,6 +124,21 @@ rustc 1.63.0 (4b91a6ea7 2022-08-08)
 cargo build -r
 ```
 
+### V
+
+Check and compile V version:
+
+```bash
+$ v --version
+V 0.3.1 e6e3751
+```
+
+```bash
+v -autofree crun ana.v
+```
+
+> With or without the `-autofree` flag, the end result is the same.
+
 ---
 
 ## Run
@@ -134,7 +153,7 @@ echo 3 | sudo tee /proc/sys/vm/drop_caches
 Run the benchmark:
 
 ```bash
-hyperfine --warmup 3 "python3.10 ana.py" "./ananim" "./anago" "./anarust" --export-json anagram.json --export-markdown anamarkdown.md
+hyperfine --warmup 3 "python3.10.5 ana.py" "./ananim" "./anago" "./anarust" "./anav" --export-json anagram.json --export-markdown anamarkdown.md
 ```
 
 ## Results
@@ -164,18 +183,21 @@ The `JSON` result is also provided [here](anagram.json) in case you would like t
 
 All programs gained a performance boost in this test in comparison to the `WSL2` test. `Rust` still managed to be the victor, `Go` kept its place and `Nim` is now very close to `Go`.
 
-| Language |   Mean [ms] | Min [ms] | Max [ms] |    Relative |
-| :------- | ----------: | -------: | -------: | ----------: |
-| `Rust`   | 238.7 ± 1.2 |    237.5 |    241.6 |        1.00 |
-| `Go`     | 343.2 ± 4.1 |    337.8 |    350.4 | 1.44 ± 0.02 |
-| `Nim`    | 510.8 ± 4.9 |    503.1 |    520.8 | 2.14 ± 0.02 |
-| `Python` | 637.4 ± 8.7 |    624.9 |    653.3 | 2.67 ± 0.04 |
+| Language |    Mean [ms] | Min [ms] | Max [ms] |    Relative |
+| :------- | -----------: | -------: | -------: | ----------: |
+| `Rust`   |  239.6 ± 1.4 |    237.3 |    241.8 |        1.00 |
+| `Go`     |  343.2 ± 3.0 |    339.1 |    347.7 | 1.43 ± 0.02 |
+| `Nim`    |  502.7 ± 2.5 |    499.9 |    507.9 | 2.10 ± 0.02 |
+| `Python` |  593.6 ± 4.9 |    583.9 |    602.7 | 2.48 ± 0.03 |
+| `V`      | 888.1 ± 34.9 |    835.6 |    945.6 | 3.71 ± 0.15 |
+
+It is quite odd to observe `Python` is faster than `V` which is a compiled language.
 
 ---
 
-![Graph_updated](anaresult_updated.png)
+![Graph_updated](ana_updated2.png)
 
-The `JSON` result is also provided [here](anajson_updated.json) in case you would like to replicate the plot.
+The `JSON` result is also provided [here](anagram.json) in case you would like to replicate the plot.
 
 ### Development time
 
@@ -183,8 +205,9 @@ I did not time my work for this project though all the versions got completed in
 
 1. Python
 2. Nim
-3. Go
-4. Rust
+3. V
+4. Go
+5. Rust
 
 ### Verdict
 
