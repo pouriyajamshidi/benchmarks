@@ -147,7 +147,8 @@ The below command will drop the caches and runs the benchmark:
 
 ```bash
 hyperfine --prepare "sync; echo 3 | sudo tee /proc/sys/vm/drop_caches" \
-          --warmup 3 "python3.10.5 ana.py" \
+          --warmup 3 \
+          "python3.10.5 ana.py" \
           "./ananim" \
           "./anago" \
           "./anarust" \
