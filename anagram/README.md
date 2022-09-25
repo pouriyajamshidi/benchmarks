@@ -57,7 +57,7 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
 
 ## Prerequisites
 
-- Make sure your versions match the [test bench](#test-bench)
+- Make sure your language versions match the [test bench](#languages)
 - Benchmarking tool: [Hyperfine](https://github.com/sharkdp/hyperfine)
 - Plotting done by [this script](https://github.com/sharkdp/hyperfine/blob/master/scripts/plot_histogram.py)
 - Please `unrar` the `wordlist.rar` before running the benchmark.
@@ -71,7 +71,7 @@ Here is the link to the [original Kata](http://codekata.com/kata/kata06-anagrams
 Check Python version:
 
 ```bash
-$ python -V
+$ python3 -V
 Python 3.10.5
 ```
 
@@ -91,7 +91,7 @@ git hash: ff25103c9ab9d51821e9e8641955c8d24f7db6b8
 ```
 
 ```bash
-nim c -d:release -mm:orc --threads:off -o:ananim ana.nim
+nim c -d:release --mm:orc --threads:off -o:ananim ana.nim
 ```
 
 > with or without threads, the result is the same
@@ -134,7 +134,7 @@ V 0.3.1 e6e3751
 ```
 
 ```bash
-v -autofree crun ana.v
+v -autofree -prod crun ana.v
 ```
 
 > With or without the `-autofree` flag, the end result is the same.
@@ -143,17 +143,17 @@ v -autofree crun ana.v
 
 ## Run
 
-Drop the current caches:
+The below command will drop the caches and runs the benchmark:
 
 ```bash
-sync
-echo 3 | sudo tee /proc/sys/vm/drop_caches
-```
-
-Run the benchmark:
-
-```bash
-hyperfine --warmup 3 "python3.10.5 ana.py" "./ananim" "./anago" "./anarust" "./anav" --export-json anagram.json --export-markdown anamarkdown.md
+hyperfine --prepare "sync; echo 3 | sudo tee /proc/sys/vm/drop_caches" \
+          --warmup 3 "python3.10.5 ana.py" \
+          "./ananim" \
+          "./anago" \
+          "./anarust" \
+          "./anav"
+          --export-json anagram.json
+          --export-markdown anamarkdown.md
 ```
 
 ## Results
@@ -215,4 +215,4 @@ I did not time my work for this project though all the versions got completed in
 
 ### Closing Note
 
-`Go` surprised me once again with the amount of hoops that I had to jump through to solve such a simple problem; more than `Rust`.
+`Go` surprised me once again with the amount of hoops that I had to jump through to solve such a simple problem; writing the `Go` version was more complicated than `Rust`.
