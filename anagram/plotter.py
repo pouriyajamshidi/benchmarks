@@ -2,7 +2,7 @@ import json
 
 import matplotlib.pyplot as plt
 
-DATA_PATH = "anajson"
+DATA_PATH = "anagram.json"
 BAR_WIDTH = 0.15
 
 
@@ -89,5 +89,5 @@ plt.xticks(
 )
 
 plt.legend()
-plt.savefig("testplot.png")
+plt.savefig("ana.png")
 plt.show()
